@@ -17,7 +17,10 @@ var country='';
 
 
 var bot= new  FBBotFramework({
-page_token :'EAAdlBWRKZA90BAGC36HlZBQ7N4K4vf6eKj9maRB5V9LhyhBBgPDxFY7gYkz0CFlF8S8dUH35wWGP9NNlZB09u1BqBwn4m9M7yevmsD7RZCCXZBejD2Tt097N3BOjcEwimDzoKwtK32swZC3ADaHBQ94gTZBrrjqAAigIuBZAwoqZByCqs8ZBGIYsX4',  //Esto es de la pagina de Facebook
+
+
+	
+page_token :'EAAdlBWRKZA90BAD1YZAAFQ3RzZCDV07ZB9jHQhRjlypcyAUK9sKVZAHoImCsuL2fYFFvObP8Iva5rbuZCXSxXU5idpP0u6awmKfgaEmrgAsZA3eaMQpCNQSxrYPscntUAO6l1xMpGyh4h1eNJu2sO2TKvZACQjmuAIlFFLrpiq17zbH6CYbue0ne',  //Esto es de la pagina de Facebook
 verify_token :'vigajolabs'
 });
 
