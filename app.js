@@ -1,25 +1,25 @@
 
-var express=require('express');
-var app=express();
+// Reference express
+var express = require('express');
+var app = express();
 
-var FBBotFramework=require('fb-bot-framework');
+//Reference FB BOT Framework
 
+var FBBotFramework = require('fb-bot-framework');
 
-var listeningport=process.env.PORT || 4000;
+var listeningport =  process.env.PORT || 4000;
 
-
-
-var currencyobtained=false;
-var countryobtained=false;
+var currencyobtained = false;
+var countryobtained = false;
 var dollarvalue=0.0;
 var country='';
 
 
+// Initialise the FB BOT FBBotFramework
+
+
 
 var bot= new  FBBotFramework({
-
-
-	
 page_token :'EAAdlBWRKZA90BAD1YZAAFQ3RzZCDV07ZB9jHQhRjlypcyAUK9sKVZAHoImCsuL2fYFFvObP8Iva5rbuZCXSxXU5idpP0u6awmKfgaEmrgAsZA3eaMQpCNQSxrYPscntUAO6l1xMpGyh4h1eNJu2sO2TKvZACQjmuAIlFFLrpiq17zbH6CYbue0ne',  //Esto es de la pagina de Facebook
 verify_token :'vigajolabs'
 });
@@ -83,29 +83,57 @@ CurrencyConvertor = function(userId, msg){
 
         }
 
+        var quickreply = [
+          {
+            "content_type" : "text",
+            "title": "👍",
+            "payload" : "thumbs_up"
+          },
+          {
+            "content_type" : "text",
+            "title": "👎",
+            "payload" : "thumbs_down"
+          }
+
+        ];
+
         bot.sendQuickReplies(userId, ' Please rate my service', quickreply);
 
   }
 
 };
 
+//Setup an express middleware for the webhook
 app.use('/fb/msg', bot.middleware());
 
-
-bot.on('message',function(userId,msg){
-	
-	CurrencyConvertor(userId,msg);
-
+// Setup a listener for incoming messages
+bot.on('message', function(userId, msg){
+ // bot.sendTextMessage(userId, 'Hi, i am a copy cat :' + msg);
+CurrencyConvertor(userId,msg);
 });
 
-function isNumber(n){
-	return lisNan(parseFloat(n)) && isFinite(n);
+
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
-app.get('/',function(req,res){
-	res.send("facebook BOT listening...");
+
+// setup an event handler for the quickreplies
+bot.on('quickreply', function(userid,payload){
+if(payload === 'thumbs_up'){
+  bot.sendTextMessage(userid, ' I am humbled. Thank you');
+}
+else if(payload === 'thumbs_down'){
+    bot.sendTextMessage(userid, ' I am Sorry i was unable to help you');
+}
+
+});
+// Implement the Get() method
+app.get('/',  function(req, res){
+  res.send("Facebook BOT listening...");
 });
 
-app.listen(listeningport,function(){
-	console.log('facebook BOT listening');
+// start listening at the PORT
+app.listen(listeningport, function(){
+  console.log('Facebook BOT listening');
 });
